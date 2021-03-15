@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="row">
       <div className="col-md-8 offset-md-2">
-        <Contacts />
+        <Contacts> </Contacts>
       </div>
 
     </div>
