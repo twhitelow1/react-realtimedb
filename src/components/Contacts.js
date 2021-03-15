@@ -1,9 +1,19 @@
 import React from 'react';
-import ContactForm from "./ContactForm"
+import ContactForm from "./ContactForm";
+import firebaseDb from "../firebase";
 
 const Contacts = () => {
 
-  const addOrEdit = obj => { addOrEdit }
+  const addOrEdit = obj => {
+    firebaseDb.child('contacts').push(
+      obj,
+      err => {
+        if (err) {
+          console.log(err);
+        }
+      }
+    )
+  }
   return (
     <>
       <div class="jumbotron jumbotron-fluid">

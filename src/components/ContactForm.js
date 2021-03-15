@@ -23,6 +23,8 @@ const ContactForm = (props) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
+    props.addOrEdit(values)
+
   }
 
 
