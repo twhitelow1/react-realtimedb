@@ -10,94 +10,93 @@ const Contacts = () => {
   //Once components load complete
   useEffect(() => {
     firebaseDb.child('contacts').on('value', snapshot => {
-      if (snapshot.val() != null) {
+      if (snapshot.val() != null)
         setContactObjects({
           ...snapshot.val()
-        });
-      }
+        })
+      else setContactObjects({})
     })
   }, [])
 
 
   const addOrEdit = obj => {
-    if (currentId == '')
+    if (currentId === '')
       firebaseDb.child('contacts').push(
         obj,
         err => {
-          if (err)
-            console.log(err)
-          else
-            setCurrentId('')
-        })
+          if (err) console.log(err);
+          else setCurrentId('')
+        }
+      )
     else
       firebaseDb.child(`contacts/${currentId}`).set(
         obj,
         err => {
+          if (err) console.log(err)
+          else setCurrentId('')
+        }
+      )
+  }
+
+  const onDelete = key => {
+    if (window.confirm('Are you sure to delete this record?')) {
+      firebaseDb.child(`contacts/${key}`).remove(
+        err => {
           if (err)
             console.log(err)
           else
             setCurrentId('')
         })
+    }
   }
-}
 
-const onDelete = id => {
-  if (window.confirm('Are you sure to delete this record?')) {
-    firebaseDb.child(`contacts/${id}`).remove(
-      err => {
-        if (err)
-          console.log(err)
-        else
-          setCurrentId('')
-      })
-  }
-}
-
-return (
-  <>
-    <div className="jumbotron jumbotron-fluid">
-      <div className="container">
-        <h1 className="display-4 text-center">Contact Manager</h1>
+  return (
+    <>
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4 text-center">Contact Register</h1>
+        </div>
       </div>
-    </div>
-    <div className="row">
-      <div className="col-md-5">
-        <ContactForm {...({ currentId, contactObjects, addOrEdit })} ></ContactForm>
-      </div>
-      <div className="col-md-7">
-        <table className="table table-borderless table-stripped">
-          <thead className="thead-light">
-            <tr>
-              <th>Name</th>
-              <th>Mobile</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              Object.keys(contactObjects).map((key) => (
-                <tr key={key}>
-                  <td>{contactObjects[key].fullName}</td>
-                  <td>{contactObjects[key].mobile}</td>
-                  <td>{contactObjects[key].email}</td>
-                  <td className="bg-light">
-                    <a className="btn text-primary" onClick={() => { setCurrentId(key) }}>
-                      <i className="fas fa-pencil-alt"></i>
-                    </a>
-                    <a className="btn text-danger" onClick={() => { onDelete(key) }}>
-                      <i className="far fa-trash-alt"></i>
-                    </a>
-                  </td>
+      <div className="row">
+        <div className="col-md-5">
+          <ContactForm {...({ addOrEdit, currentId, contactObjects })} />
+        </div>
+        <div className="col-md-7">
+          <div>
+            <table className="table table-borderless table-stripped">
+              <thead className="thead-light">
+                <tr>
+                  <th>Full Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>Actions</th>
                 </tr>
-              ))
-            }
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {
+                  Object.keys(contactObjects).map(id => {
+                    return <tr key={id}>
+                      <td>{contactObjects[id].fullName}</td>
+                      <td>{contactObjects[id].mobile}</td>
+                      <td>{contactObjects[id].email}</td>
+                      <td>
+                        <a className="btn text-primary" onClick={() => setCurrentId(id)} href="">
+                          <i className="fas fa-pencil-alt"></i>
+                        </a>
+                        <a className="btn text-danger" onClick={() => onDelete(id)} href="">
+                          <i class="fas fa-trash-alt"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 }
 
 export default Contacts;

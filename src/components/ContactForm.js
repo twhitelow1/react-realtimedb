@@ -10,15 +10,15 @@ const ContactForm = (props) => {
 
   var [values, setValues] = useState(initialFieldValues)
 
-
   useEffect(() => {
-    if (props.currentId == '')
-      setValues({ ...initialFieldValues })
+    if (props.currentId === '')
+      setValues({ ...props.initialFieldValues })
     else
       setValues({
         ...props.contactObjects[props.currentId]
       })
-  }, [props.currentId, props.contactObjects])
+  }, [props.currentId, props.contactObjects, props.initialFieldValues])
+
 
   const handleInputChange = e => {
     var { name, value } = e.target;
@@ -72,17 +72,15 @@ const ContactForm = (props) => {
         </div>
       </div>
       <div className="form-group">
-        {/* /*instead of this input use textarea - issue with my syntax highlighter */}
         <input className="form-control" name="address" placeholder="Address"
           value={values.address}
           onChange={handleInputChange}
         />
       </div>
       <div className="form-group">
-        <input type="submit" value={props.currentId == "" ? "Save" : "Update"} className="btn btn-primary btn-block" />
+        <input type="submit" value={props.currentId === "" ? "Save" : "Update"} className="btn btn-primary btn-block" />
       </div>
     </form>
   );
 }
-
 export default ContactForm;
