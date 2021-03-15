@@ -33,7 +33,7 @@ const Contacts = () => {
         obj,
         err => {
           if (err) console.log(err)
-          else setCurrentId('')
+          else setCurrentId(' ')
         }
       )
   }
@@ -80,12 +80,8 @@ const Contacts = () => {
                       <td>{contactObjects[id].mobile}</td>
                       <td>{contactObjects[id].email}</td>
                       <td>
-                        <a className="btn text-primary" onClick={() => setCurrentId(id)} href="">
-                          <i className="fas fa-pencil-alt"></i>
-                        </a>
-                        <a className="btn text-danger" onClick={() => onDelete(id)} href="">
-                          <i class="fas fa-trash-alt"></i>
-                        </a>
+                        <i className="fas fa-pencil-alt btn text-primary" onClick={() => setCurrentId(id)}></i>
+                        <i className="fas fa-trash-alt btn text-danger" onClick={() => onDelete(id)}></i>
                       </td>
                     </tr>
                   })
