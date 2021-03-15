@@ -2,6 +2,8 @@ import React from 'react';
 import ContactForm from "./ContactForm"
 
 const Contacts = () => {
+
+  const addOrEdit = obj => { addOrEdit }
   return (
     <>
       <div class="jumbotron jumbotron-fluid">
@@ -11,7 +13,7 @@ const Contacts = () => {
       </div>
       <div className="row">
         <div className="col-md-5">
-          <ContactForm />
+          <ContactForm addOrEdit="" />
         </div>
         <div className="col-md-7">
           <div> list of contacts</div>

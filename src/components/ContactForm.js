@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // npm 
 
 
-const ContactForm = () => {
+const ContactForm = (props) => {
   const initialFieldValues = {
     fullName: '',
     mobile: '',
@@ -11,6 +11,8 @@ const ContactForm = () => {
   }
 
   var [values, setValues] = useState(initialFieldValues)
+
+  //When input changes extract the name and value properties and reset the vaule for that field.
   const handleInputChange = e => {
     const { name, value } = e.target
     setValues({
@@ -19,9 +21,13 @@ const ContactForm = () => {
     })
   }
 
+  const handleFormSubmit = e => {
+    e.preventDefault();
+  }
+
 
   return (
-    <form autoComplete="off">
+    <form autoComplete="off" onSubmit={handleFormSubmit}>
       <div className="form-group input-group col-md">
         <div className="input-group-prepend">
           <div className="input-group-text">
