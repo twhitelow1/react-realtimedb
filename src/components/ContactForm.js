@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// npm 
+
 
 const ContactForm = () => {
   const initialFieldValues = {
@@ -40,7 +42,7 @@ const ContactForm = () => {
         <div className="form-group input-group col-md-6">
           <div className="input-group-prepend">
             <div className="input-group-text">
-              <i className="fas fa-envelope"></i>
+              <i class="fas fa-envelope"></i>
             </div>
           </div>
           <input className="form-control" placeholder="Email" name="email" value={values.email} />
